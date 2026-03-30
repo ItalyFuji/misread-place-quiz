@@ -57,9 +57,14 @@ def main():
     # インデックスをリセット / Reset index
     df = df.reset_index(drop=True)
 
-    # 保存 / Save output
+    # CSVで保存 / Save as CSV
     df.to_csv(OUTPUT, index=False, encoding="utf-8-sig")
     print(f"保存完了 / Saved: {OUTPUT}")
+
+    # JSONでも保存（フロントエンド直接読み込み用）/ Also save as JSON for direct frontend use
+    json_output = os.path.join("db", "quiz_db.json")
+    df.to_json(json_output, orient="records", force_ascii=False)
+    print(f"保存完了 / Saved: {json_output}")
 
 
 if __name__ == "__main__":

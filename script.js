@@ -1,3 +1,8 @@
+// Supabase クライアント / Supabase client
+const SUPABASE_URL      = "https://uzsotpzdsixkznbwytft.supabase.co/";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6c290cHpkc2l4a3puYnd5dGZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjY5NDksImV4cCI6MjA5MDQ0Mjk0OX0.PD5xZ8Ha3_Y_gQQcrf18VYzMYHu3-3jG595mj9DzKeY";
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 // 状態変数 / State variables
 let masterDatabase    = []; // サーバーから取得した全問題 / All questions fetched from server
 let remainingQuestions = [];
@@ -40,7 +45,7 @@ function showScreen(screen) {
 
 // 1. ページ読み込み時に問題データをサーバーから取得する
 //    Fetch question data from the server on page load
-fetch("/api/questions")
+fetch("db/quiz_db.json")
     .then(r => r.json())
     .then(data => {
         masterDatabase = data;
@@ -188,21 +193,25 @@ submitBtn.addEventListener("click", () => {
         knewReading: knewReading
     });
 
-    // サーバーへ送信する / Send data to server
-    fetch("/api/save_answer", {
-        method:  "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            prefecture:        currentQuestion.pref,
-            municipality_name: currentQuestion.name + currentQuestion.suffix,
-            correct_reading:   currentQuestion.reading,
-            user_input:        userAnswer,
-            is_correct:           isCorrect,
-            knew_reading:         knewReading,
-            time_to_first_input:  timeToFirstInput,
-            total_response_time:  totalResponseTime
-        })
-    }).catch(err => console.error("保存エラー / Save error:", err));
+    // Supabaseへ直接保存 / Save directly to Supabase
+    supabaseClient.from("answers").insert({
+        timestamp:            new Date().toISOString(),
+        prefecture:           currentQuestion.pref,
+        municipality_name:    currentQuestion.name + currentQuestion.suffix,
+        correct_reading:      currentQuestion.reading,
+        user_input:           userAnswer,
+        is_correct:           isCorrect ? "正解" : "不正解",
+        is_correct_binary:    isCorrect ? 1 : 0,
+        knew_reading:         knewReading ? "はい" : "いいえ",
+        time_to_first_input:  timeToFirstInput,
+        total_response_time:  totalResponseTime
+    }).then(({ data, error }) => {
+        if (error) {
+            console.error("保存エラー:", error);
+        } else {
+            console.log("保存成功:", data);
+        }
+    });
 
     // 正解・不正解を表示する / Show correct / incorrect result
     if (isCorrect) {
