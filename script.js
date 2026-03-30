@@ -5,6 +5,8 @@ let currentQuestion   = null;
 let knewReading       = null;
 let questionNumber    = 0;
 let answeredQuestions = [];
+let questionStartTime  = null; // 問題表示時刻 / Time when question was displayed
+let firstInputTime     = null; // 最初のキー入力時刻 / Time of first keystroke
 
 // DOM要素 / DOM elements
 const consentScreen       = document.getElementById("consent-screen");
@@ -112,6 +114,8 @@ function setNextQuestion() {
 
     questionDisplay.textContent = currentQuestion.name;
     hintText.textContent = `ヒント: ${currentQuestion.pref} の ${currentQuestion.suffix}`;
+    questionStartTime = Date.now(); // 問題表示時刻を記録 / Record question display time
+    firstInputTime    = null;       // 入力時刻をリセット / Reset first input time
 
     // 「知っていますか？」を未選択状態にリセットする / Reset the "did you know?" selection
     knewReading = null;
@@ -145,6 +149,9 @@ knownNoBtn.addEventListener("click", () => handleKnownSelection(false));
 
 // 7. 入力中のリアルタイムひらがなチェック / Validate input as hiragana in real time
 userAnswerInput.addEventListener("input", () => {
+    if (firstInputTime === null && userAnswerInput.value !== "") {
+        firstInputTime = Date.now(); // 最初のキー入力時刻を記録 / Record first keystroke time
+    }
     const text = userAnswerInput.value;
     const hiraganaRegex = /^[ぁ-んー]*$/;
 
@@ -163,8 +170,11 @@ userAnswerInput.addEventListener("input", () => {
 
 // 8. 解答送信処理 / Handle answer submission
 submitBtn.addEventListener("click", () => {
-    const userAnswer = userAnswerInput.value.trim();
-    const isCorrect  = (userAnswer === currentQuestion.reading);
+    const userAnswer         = userAnswerInput.value.trim();
+    const isCorrect          = (userAnswer === currentQuestion.reading);
+    const now                = Date.now();
+    const timeToFirstInput   = firstInputTime !== null ? firstInputTime - questionStartTime : null;
+    const totalResponseTime  = now - questionStartTime;
 
     // 回答を結果画面用に記録する / Record the answer for the results screen
     answeredQuestions.push({
@@ -186,8 +196,10 @@ submitBtn.addEventListener("click", () => {
             municipality_name: currentQuestion.name + currentQuestion.suffix,
             correct_reading:   currentQuestion.reading,
             user_input:        userAnswer,
-            is_correct:        isCorrect,
-            knew_reading:      knewReading
+            is_correct:           isCorrect,
+            knew_reading:         knewReading,
+            time_to_first_input:  timeToFirstInput,
+            total_response_time:  totalResponseTime
         })
     }).catch(err => console.error("保存エラー / Save error:", err));
 

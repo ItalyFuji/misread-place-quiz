@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 DATA_DIR = "data"
 CSV_FILE = os.path.join(DATA_DIR, "answers.csv")
-CSV_HEADER = ["timestamp", "prefecture", "municipality_name", "correct_reading", "user_input", "is_correct", "is_correct_binary", "knew_reading"]
+CSV_HEADER = ["timestamp", "prefecture", "municipality_name", "correct_reading", "user_input", "is_correct", "is_correct_binary", "knew_reading", "time_to_first_input", "total_response_time"]
 
 QUIZ_DB = os.path.join("db", "quiz_db.csv")
 
@@ -61,9 +61,15 @@ def save_answer():
         "正解" if is_correct else "不正解",
         1 if is_correct else 0,
         "はい" if data["knew_reading"] else "いいえ",
+        data["time_to_first_input"],
+        data["total_response_time"],
     ]
     with open(CSV_FILE, "a", newline="", encoding="utf-8-sig") as f:
-        csv.writer(f).writerow(row)
+        writer = csv.writer(f)
+        # ファイルが空ならヘッダーを先に書く / Write header first if file is empty
+        if f.tell() == 0:
+            writer.writerow(CSV_HEADER)
+        writer.writerow(row)
     return jsonify({"status": "ok"})
 
 
@@ -87,14 +93,30 @@ def admin():
     # Display answer data as an HTML table (auto-refreshes every 5 seconds)
     header, data = _read_answers()
 
+    # 列インデックスの定数 / Column index constants
+    IDX_IS_CORRECT       = 5
+    IDX_IS_CORRECT_BIN   = 6
+    IDX_TIME_FIRST_INPUT = 8
+    IDX_TOTAL_TIME       = 9
+    CENTER_COLS = {IDX_IS_CORRECT_BIN, IDX_TIME_FIRST_INPUT, IDX_TOTAL_TIME}
+
+    def fmt_cell(i, val):
+        style = ' style="text-align:center;"' if i in CENTER_COLS else ""
+        if i in (IDX_TIME_FIRST_INPUT, IDX_TOTAL_TIME) and val not in ("", "None", None):
+            return f"<td{style}>{val} ms</td>"
+        return f"<td{style}>{val}</td>"
+
     rows_html = ""
     for row in reversed(data):  # 新しい回答を上に表示 / Show latest answers first
-        is_correct = row[5] == "正解" if len(row) > 5 else False  # is_correct列
+        is_correct = row[IDX_IS_CORRECT] == "正解" if len(row) > IDX_IS_CORRECT else False
         color = "#e8f5e9" if is_correct else "#ffebee"
-        cells = "".join(f"<td>{cell}</td>" for cell in row)
+        cells = "".join(fmt_cell(i, cell) for i, cell in enumerate(row))
         rows_html += f'<tr style="background:{color}">{cells}</tr>'
 
-    header_html = "".join(f"<th>{h}</th>" for h in header)
+    header_html = "".join(
+        f'<th style="text-align:center;">{h}</th>' if i in CENTER_COLS else f"<th>{h}</th>"
+        for i, h in enumerate(header)
+    )
     total = len(data)
 
     return f"""<!DOCTYPE html>
@@ -127,7 +149,7 @@ def admin():
     </div>
     <table>
         <thead><tr>{header_html}</tr></thead>
-        <tbody>{rows_html if rows_html else '<tr><td colspan="8" style="text-align:center;color:#999;">まだ回答がありません / No answers yet</td></tr>'}</tbody>
+        <tbody>{rows_html if rows_html else '<tr><td colspan="10" style="text-align:center;color:#999;">まだ回答がありません / No answers yet</td></tr>'}</tbody>
     </table>
     <script>setTimeout(() => location.reload(), 5000);</script>
 </body>

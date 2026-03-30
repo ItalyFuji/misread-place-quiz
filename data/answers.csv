@@ -1,7 +1,2 @@
-﻿timestamp,prefecture,municipality_name,correct_reading,user_input,is_correct,is_correct_binary,knew_reading
-2026-03-30T17:23:11.116299,新潟県,長岡市,ながおか,ながおか,正解,1,はい
-2026-03-30T17:24:12.772440,青森県,外ヶ浜町,そとがはま,そとがはま,正解,1,いいえ
-2026-03-30T17:24:19.068004,北海道,当別町,とうべつ,とうべつ,正解,1,いいえ
-2026-03-30T17:24:24.685917,北海道,北広島市,きたひろしま,きたひろしま,正解,1,いいえ
-2026-03-30T17:24:31.362483,山梨県,市川三郷町,いちかわみさと,いちかわさんごう,不正解,0,いいえ
-2026-03-30T17:24:36.751077,高知県,南国市,なんこく,なんごく,不正解,0,いいえ
+﻿timestamp,prefecture,municipality_name,correct_reading,user_input,is_correct,is_correct_binary,knew_reading,time_to_first_input,total_response_time
+2026-03-30T17:48:06.182642,熊本県,八代市,やつしろ,やしろ,不正解,0,いいえ,2409,5639
