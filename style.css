@@ -1,0 +1,304 @@
+/* 画面全体 */
+body {
+    font-family: sans-serif;
+    background-color: #f4f6f8;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* クイズの枠 */
+.quiz-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    width: 100%;
+    max-width: 560px;
+    text-align: center;
+}
+
+/* ── 同意確認画面 ── */
+
+.consent-title {
+    font-size: 22px;
+    margin: 0 0 16px 0;
+    color: #333;
+}
+
+.consent-body {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.7;
+    margin: 0 0 12px 0;
+}
+
+.consent-list {
+    text-align: left;
+    display: inline-block;
+    font-size: 14px;
+    color: #555;
+    line-height: 2;
+    margin: 0 0 16px 0;
+}
+
+.consent-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+#consent-agree {
+    padding: 12px 32px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#consent-agree:hover {
+    background-color: #0056b3;
+}
+
+#consent-decline {
+    padding: 12px 32px;
+    font-size: 16px;
+    background-color: #e9ecef;
+    color: #555;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#consent-decline:hover {
+    background-color: #dee2e6;
+}
+
+#back-to-consent-btn {
+    padding: 10px 32px;
+    font-size: 15px;
+    background-color: #e9ecef;
+    color: #555;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#back-to-consent-btn:hover {
+    background-color: #dee2e6;
+}
+
+/* ── 問題数選択画面 ── */
+
+.count-title {
+    font-size: 22px;
+    margin: 0 0 28px 0;
+    color: #333;
+}
+
+.count-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+}
+
+.count-btn {
+    padding: 16px 28px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    min-width: 110px;
+}
+
+.count-btn:hover {
+    background-color: #0056b3;
+}
+
+.count-btn:disabled {
+    background-color: #a0c4f1;
+    cursor: not-allowed;
+}
+
+/* ── クイズ画面 ── */
+
+/* 問題の地名 */
+.question-text {
+    font-size: 80px;
+    font-weight: bold;
+    margin: 0 0 14px 0;
+    letter-spacing: 8px;
+    min-height: 100px;
+}
+
+/* ヒント */
+.hint-text {
+    font-size: 20px;
+    color: #777;
+    margin: 0 0 28px 0;
+}
+
+/* 「知っていますか？」セクション */
+.known-section {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+}
+
+.known-label {
+    font-size: 13px;
+    color: #666;
+    margin: 0 0 10px 0;
+}
+
+.known-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.known-btn {
+    padding: 7px 30px;
+    font-size: 14px;
+    background-color: #e9ecef;
+    color: #333;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.known-btn:hover {
+    background-color: #dee2e6;
+}
+
+.known-btn.selected {
+    background-color: #007bff;
+    color: white;
+    border-color: #0056b3;
+}
+
+/* 入力欄とボタン */
+.input-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+input[type="text"] {
+    padding: 12px 14px;
+    width: 55%;
+    font-size: 18px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+}
+
+input[type="text"]:focus {
+    border-color: #007bff;
+}
+
+input[type="text"]:disabled {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+}
+
+button#submit-btn {
+    padding: 12px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+}
+
+button#submit-btn:disabled {
+    background-color: #a0c4f1;
+    cursor: not-allowed;
+}
+
+/* 警告・結果メッセージ */
+.warning-message {
+    color: orange;
+    font-size: 14px;
+    margin: 4px 0 0 0;
+    min-height: 20px;
+}
+
+.result-message {
+    font-weight: bold;
+    font-size: 22px;
+    margin-top: 16px;
+    min-height: 30px;
+}
+
+/* ── 結果画面 ── */
+
+.results-title {
+    font-size: 26px;
+    margin: 0 0 24px 0;
+    color: #333;
+}
+
+.result-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    text-align: left;
+    font-size: 16px;
+}
+
+.result-item.correct {
+    background-color: #e8f5e9;
+    border: 1px solid #a5d6a7;
+}
+
+.result-item.incorrect {
+    background-color: #ffebee;
+    border: 1px solid #ef9a9a;
+}
+
+.result-num {
+    font-size: 13px;
+    color: #888;
+    min-width: 32px;
+}
+
+.result-name {
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    flex: 1;
+}
+
+.result-reading {
+    font-size: 15px;
+    color: #444;
+}
+
+#restart-btn {
+    margin-top: 24px;
+    padding: 12px 40px;
+    font-size: 17px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+}
+
+#restart-btn:hover {
+    background-color: #0056b3;
+}

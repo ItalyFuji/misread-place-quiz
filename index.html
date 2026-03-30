@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自治体読み方クイズ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+
+        <!-- 同意確認画面 / Consent screen -->
+        <div id="consent-screen">
+            <h2 class="consent-title">回答データの保存について</h2>
+            <p class="consent-body">
+                このクイズは研究目的で実施しています。<br>
+                回答にあたり、以下のデータを保存させていただきます。
+            </p>
+            <ul class="consent-list">
+                <li>あなたの回答</li>
+                <li>その地名の読みを事前に知っていたか否か</li>
+            </ul>
+            <p class="consent-body">個人を特定する情報は一切保存されません。</p>
+            <div class="consent-buttons">
+                <button id="consent-agree">同意して始める</button>
+                <button id="consent-decline">同意しない</button>
+            </div>
+        </div>
+
+        <!-- 同意しない場合のメッセージ / Decline message -->
+        <div id="decline-screen" style="display: none;">
+            <p class="consent-body" style="line-height:2; margin-bottom: 24px;">
+                ご回答いただけない場合、クイズへの参加はできません。<br>
+                ご理解のほどよろしくお願いいたします。
+            </p>
+            <button id="back-to-consent-btn">戻る</button>
+        </div>
+
+        <!-- 問題数選択画面 / Question count selection screen -->
+        <div id="count-screen" style="display: none;">
+            <h2 class="count-title">何問挑戦しますか？</h2>
+            <div class="count-buttons">
+                <button class="count-btn" data-count="5">5問</button>
+                <button class="count-btn" data-count="10">10問</button>
+                <button class="count-btn" data-count="50">50問</button>
+                <button class="count-btn" data-count="100">100問</button>
+                <button class="count-btn" id="count-all-btn" data-count="all">全問</button>
+            </div>
+        </div>
+
+        <!-- クイズ画面 / Quiz screen -->
+        <div id="quiz-screen" style="display: none;">
+            <div id="question-display" class="question-text"></div>
+            <p id="hint-text" class="hint-text"></p>
+
+            <div id="known-section" class="known-section">
+                <p class="known-label">この地名の読みを既に知っていますか？</p>
+                <div class="known-buttons">
+                    <button id="known-yes" class="known-btn">はい</button>
+                    <button id="known-no" class="known-btn">いいえ</button>
+                </div>
+            </div>
+
+            <div class="input-area">
+                <input type="text" id="user-answer" placeholder="ひらがなで入力" disabled
+                    autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                <button id="submit-btn" disabled>解答</button>
+            </div>
+
+            <p id="warning-message" class="warning-message"></p>
+            <p id="result-message" class="result-message"></p>
+        </div>
+
+        <!-- 結果画面 / Results screen -->
+        <div id="results-screen" style="display: none;">
+            <h2 class="results-title">全問終了！</h2>
+            <div id="results-list"></div>
+            <button id="restart-btn">もう一度挑戦する</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
