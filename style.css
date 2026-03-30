@@ -342,11 +342,12 @@ button#submit-btn:disabled {
     }
 
     input[type="text"] {
-        width: 100%;
+        width: 75%;
     }
 
     button#submit-btn {
-        width: 100%;
+        padding: 10px 14px;
+        font-size: 15px;
     }
 
     .result-name {
