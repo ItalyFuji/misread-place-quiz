@@ -347,11 +347,11 @@ button#submit-btn:disabled {
     }
 
     .consent-body {
-        font-size: 13px;
+        font-size: 11px;
     }
 
     .consent-list {
-        font-size: 12px;
+        font-size: 13px;
     }
 
     #consent-agree,
