@@ -95,8 +95,15 @@ body {
 
 .count-title {
     font-size: 22px;
-    margin: 0 0 28px 0;
+    margin: 0 0 12px 0;
     color: #333;
+}
+
+.count-hint {
+    font-size: 13px;
+    color: #666;
+    margin: 0 0 24px 0;
+    line-height: 1.6;
 }
 
 .count-buttons {
@@ -301,4 +308,42 @@ button#submit-btn:disabled {
 
 #restart-btn:hover {
     background-color: #0056b3;
+}
+
+/* ── スマホ対応 / Mobile responsive ── */
+@media (max-width: 480px) {
+    body {
+        padding: 16px 12px;
+    }
+
+    .quiz-container {
+        padding: 24px 16px;
+    }
+
+    .question-text {
+        font-size: 52px;
+        letter-spacing: 4px;
+    }
+
+    #consent-agree,
+    #consent-decline {
+        padding: 12px 20px;
+        font-size: 15px;
+    }
+
+    .input-area {
+        flex-direction: column;
+    }
+
+    input[type="text"] {
+        width: 100%;
+    }
+
+    button#submit-btn {
+        width: 100%;
+    }
+
+    .result-name {
+        font-size: 18px;
+    }
 }
