@@ -1,0 +1,32 @@
+# 依存パッケージ
+node_modules/
+
+# 環境変数・機密情報
+.env
+.env.local
+.env.*.local
+
+# OS が自動生成するファイル
+.DS_Store        # Mac
+Thumbs.db        # Windows
+Desktop.ini      # Windows
+
+# エディタ・IDE の設定ファイル
+.vscode/
+.idea/
+
+# ログファイル
+*.log
+npm-debug.log*
+
+# ビルド成果物
+dist/
+build/
+
+# 回答データ・元データ（研究データはGit管理しない）
+data/
+db/source/
+
+# Python
+__pycache__/
+*.pyc
