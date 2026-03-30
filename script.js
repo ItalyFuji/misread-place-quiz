@@ -152,6 +152,7 @@ userAnswerInput.addEventListener("input", () => {
     if (firstInputTime === null && userAnswerInput.value !== "") {
         firstInputTime = Date.now(); // 最初のキー入力時刻を記録 / Record first keystroke time
     }
+
     const text = userAnswerInput.value;
     const hiraganaRegex = /^[ぁ-んー]*$/;
 
