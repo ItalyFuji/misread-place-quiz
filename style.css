@@ -20,6 +20,12 @@ body {
 
 /* ── 同意確認画面 ── */
 
+.app-title {
+    font-size: 28px;
+    margin: 0 0 32px 0;
+    color: #222;
+}
+
 .consent-title {
     font-size: 22px;
     margin: 0 0 16px 0;
@@ -329,6 +335,23 @@ button#submit-btn:disabled {
     .question-text {
         font-size: 52px;
         letter-spacing: 4px;
+    }
+
+    .app-title {
+        font-size: 22px;
+        margin: 0 0 24px 0;
+    }
+
+    .consent-title {
+        font-size: 19px;
+    }
+
+    .consent-body {
+        font-size: 13px;
+    }
+
+    .consent-list {
+        font-size: 12px;
     }
 
     #consent-agree,
