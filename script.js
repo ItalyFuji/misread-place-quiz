@@ -152,6 +152,13 @@ knownYesBtn.addEventListener("click", () => handleKnownSelection(true));
 knownNoBtn.addEventListener("click", () => handleKnownSelection(false));
 
 
+// 7a. PCでEnterキーで送信 / Submit with Enter key on PC
+userAnswerInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !submitBtn.disabled) {
+        submitBtn.click();
+    }
+});
+
 // 7. 入力中のリアルタイムひらがなチェック / Validate input as hiragana in real time
 userAnswerInput.addEventListener("input", () => {
     if (firstInputTime === null && userAnswerInput.value !== "") {
