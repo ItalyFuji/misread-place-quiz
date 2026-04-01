@@ -48,7 +48,7 @@ python server.py
 
 ## クイズDBの更新
 
-`db/source/municipality_DB.csv` は [Municipality_Database](https://github.com/ItalyFuji/Municipality_Database) で生成できます。
+`db/source/municipality_DB.csv` は [municipality_database](https://github.com/ItalyFuji/municipality_database) で生成できます。
 
 生成後、`db/source/` に配置して以下を実行：
 
