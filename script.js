@@ -246,6 +246,12 @@ submitBtn.addEventListener("click", () => {
 function showResults() {
     showScreen(resultsScreen);
 
+    const total   = answeredQuestions.length;
+    const correct = answeredQuestions.filter(q => q.isCorrect).length;
+    const rate    = total > 0 ? Math.round(correct / total * 100) : 0;
+    document.getElementById("score-summary").textContent =
+        `${correct}問中${total}問正解　正解率:${rate}%`;
+
     resultsList.innerHTML = answeredQuestions.map(q => `
         <div class="result-item ${q.isCorrect ? "correct" : "incorrect"}">
             <span class="result-num">問${q.number}</span>
