@@ -250,7 +250,7 @@ function showResults() {
     const correct = answeredQuestions.filter(q => q.isCorrect).length;
     const rate    = total > 0 ? Math.round(correct / total * 100) : 0;
     document.getElementById("score-summary").textContent =
-        `${correct}問中${total}問正解　正解率:${rate}%`;
+        `${total}問中${correct}問正解　正解率:${rate}%`;
 
     resultsList.innerHTML = answeredQuestions.map(q => `
         <div class="result-item ${q.isCorrect ? "correct" : "incorrect"}">
